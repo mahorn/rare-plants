@@ -87,6 +87,7 @@
         .hover {
             fill: yellow;   
         }
+
     </style>
 </head>
 <body>
@@ -169,60 +170,73 @@
                     return {
                         color: '#505160',
                         weight: 1,
-                    fillOpacity: 1,
-                    fillColor: '#080706'
-                    }
+                        fillOpacity: 1,
+                        fillColor: '#080706'
+                        }
                 }
 
         }).addTo(map);
-         
+            
+                
                     retrieveInfo();
-                    highlightCounties();
+//                    highlightCounties();
+//           
         }
-
+    
+                                    
         function retrieveInfo() {
             var info = $('#info');
-            
-                countyPlants.on('mouseover', function(e) {
-                    info.show();
+           countyPlants.eachLayer(function(layer) {
+               
+               var props = layer.feature.properties.plants;
+               console.log(props);
+               
+                layer.on('mouseover', function(e) {
                     
                     $('#info').html(getPlants(props));
-                        e.layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
-                            outputText += '<li>' + plants[plant].SNAME + '</li>'
-                    });
-                        layer.on('click', function() {
-                        console.log(props)
-                    });
-            
-                countyPlants.on('mouseout', function(e) {
-                    info.hide();
-                        e.layer.setStyle({ fillColor: '#080706', fillOpacity: 1 });
-                    });
+                    layer.setStyle({fillColor: '#AEBD38', fillOpacity: 1});
+                        
+                });
+
+//                layer.on('click', function() {
+//                    console.log(props);
+//                });
+//            
+//                layer.on('mouseout', function(e) {
+//                    $('#info').hide();
+//                    e.layer.setStyle({fillColor: '#080706', fillOpacity: 1});
+//
+//                });
+            });
         }
+                                  
         
-        function getPlants(plants) {
-            var outputText = '';
+         function getPlants(plants) {
+           var outputText = '';
                 for (var plant in plants) {
                         outputText += '<li>' + plants[plant].CNAME + '</li>'
                 }
             
             return outputText;
         }
+//        
         
-        function highlightCounties() {
-            var list = $('#plants');
-            
-                list.on('mouseover', function(e) {
-                    var selectedPlant = $(e.target).html();
-                        countyPlants.setStyle({ fillColor: '#080706', fillOpacity: 1 });
-                            countyPlants.eachLayer (function(layer) {
-                                var plants = layer.feature.properties.plants;
-                            })      for(var plant in plants) {
-                                if(selectedPlant === plants[plant].SNAME) {
-                                    layer.setStyle({ fillColor: '#AEBD38'}, fillOpacity: 1 )};
-                            }
-                });
-        }
+//        function highlightCounties() {
+//            var list = $('#plants');
+//            
+//                list.on('mouseover', function(e) {
+//                    var selectedPlant = $(e.target).html();
+//                        countyPlants.setStyle({ fillColor: '#080706', fillOpacity: 1 });
+//                            countyPlants.eachLayer (function(layer) {
+//                                var plants = layer.feature.properties.plants;
+//                                    for(var plant in plants) {
+//                                        if(selectedPlant === plants[plant].SNAME) {
+//                                            layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
+//                                        }
+//                                    }           
+//                            });
+//                });
+//        }
         
 </script>
 </body>
