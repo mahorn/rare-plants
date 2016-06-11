@@ -26,7 +26,7 @@
         }
         h1, #county-plants {
             position: absolute;
-            left: 50px;
+            left: 60px;
             top: 10px;
             font-family: 'Pompiere', cursive;
             font-size: 3em;
@@ -63,28 +63,38 @@
             display: none;
             overflow-y: scroll;
             height: 300px;
-            color: #AFB0B7;;
+            color: #84858F;
             z-index: 2;
             left: 140px;
             top: 232px; 
           
+
+
 /*
+
             background: rgba(25,25,25,0.2);
             border-radius: 5px;
             padding: 14px 3%;
 */
+
+
         }
+
         #plants {
             position: absolute;
+
+
             background: rgba(25,25,25,0.2);
             border-radius: 5px;
             padding: 14px 3%;
-            width: 138px;
-            top: 44px;
-            right: 40px;
-            height: 359px;
+
+
+            width: 198px;
+            top: 40px;
+            right: 30px;
+            height: 463px;
             overflow-y: scroll;
-            color: #AFB0B7;
+            color: #84858F;
             z-index: 1;
         }
         #plants li {
@@ -94,6 +104,7 @@
             text-decoration: underline;
             cursor: pointer;
         }
+/*
         .county {
           stroke: #fff;
           fill:#AFB0B7;
@@ -101,6 +112,7 @@
         .hover {
             fill: #AFB0B7;   
         }
+*/
 
     </style>
 </head>
@@ -185,9 +197,9 @@
             countyPlants = L.geoJson(counties, {
                 style: function(feature) {
                     return {
-                        color: '#68829e',
-                        weight: 0.4,
-                        opacity: 0.6,
+                        color: '#353C3F',
+                        weight: 1,
+                        opacity: 0.7,
                         fillOpacity: 1,
                         fillColor: '#080706'
                         }
@@ -275,7 +287,7 @@
                                 console.log(plants);
                                     for(var plant in plants) {
                                         if(selectedPlant === plants[plant].SNAME) {
-                                            layer.setStyle({ fillColor: '#AFB0B7', fillOpacity: 1 });
+                                            layer.setStyle({ fillColor: '#84858F', fillOpacity: 1 });
                                         }
                                     }           
                             });
