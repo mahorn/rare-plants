@@ -218,24 +218,23 @@
 //            }
 
                  onEachFeature: function(feature, layer) {
-                            var props = layer.feature.properties;
+                      var props = layer.feature.properties;
                       layer.on('click', function(e) {
-                                $("#county-plants").show();
-                                      $('#info').show();
-                      $("#county-plants").text(props.NAME + ' County:');
-                     $('#info').html(getPlants(props.plants));
-                           layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
-     })
-                        layer.on('mouseout', function(){
-              $("#county-plants").hide();
-                   $('#info').hide();
-                   layer.setStyle({ fillColor: '#080706', fillOpacity: 1 });
-                });
-        }
-        }).addTo(map);
+                         $("#county-plants").show();
+                         $('#info').show();
+                         $("#county-plants").text(props.NAME + ' County:');
+                         $('#info').html(getPlants(props.plants));
+                         layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
+                       })
+                       layer.on('mouseout', function(){
+                            $("#county-plants").hide();
+                            $('#info').hide();
+                            layer.setStyle({ fillColor: '#080706', fillOpacity: 1 });
+                       });
+                   }
+            }).addTo(map);
             
-//                    retrieveInfo();
-                    highlightCounties();  
+            highlightCounties();  
             
             
         }
@@ -243,28 +242,6 @@
          function zoomToFeature(e) {
              map.fitBounds(e.target.getBounds());
          }  
-        
-        function retrieveInfo() {
-            var info = $('#info');
-                countyPlants.on('click', function(e) {
-                    info.show();
-                    
-                      
-            var props = e.layer.feature.properties.plants;
-                if ($('#info').html(getPlants(props))) {
-                    
-                    e.layer.setStyle({ fillColor: '#AFB0B7', fillOpacity: 1 });
-                    
-                } else ($('#info').html({fillColor: '#080706', fillOpacity: 1}));
-            });
-             
-//                countyPlants.on('mouseout', function(e) {
-//                    info.hide();
-//                        e.layer.setStyle({ fillColor: '#080706', fillOpacity: 1});
-//            
-//            }); 
-           
-        }
                                   
          function getPlants(plants) {
            var outputText = '';
