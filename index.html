@@ -235,9 +235,11 @@
                     
                       
             var props = e.layer.feature.properties.plants;
-                $('#info').html(getPlants(props));
+                if ($('#info').html(getPlants(props))) {
+                    
                     e.layer.setStyle({ fillColor: '#505160', fillOpacity: 1 });
                     
+                } else ($('#info').html({fillColor: '#080706', fillOpacity: 1}));
             });
              
 //                countyPlants.on('mouseout', function(e) {
