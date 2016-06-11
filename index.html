@@ -31,14 +31,14 @@
             font-family: 'Pompiere', cursive;
             font-size: 3em;
             font-weight: 300;
-            color: #DCAE1D;  
+            color: #AEBD38;  
         }
         #county-plants {
-            top: 150px;
-            left: 80px;
-            font-size: 1.5em;
+            top: 160px;
+            left: 98px;
+            font-size: 1.7em;
             z-index: 3;
-            color: #7A9D96;
+            color: #AEBD38;
         }
         #map {
             position: absolute;
@@ -62,14 +62,17 @@
             max-width: 245px; 
             display: none;
             overflow-y: scroll;
-            height: 100px;
-            color: #7A9D96;
+            height: 300px;
+            color: #AFB0B7;;
             z-index: 2;
-            left: 100px;
-            top: 210px; 
+            left: 140px;
+            top: 232px; 
+          
+/*
             background: rgba(25,25,25,0.2);
             border-radius: 5px;
             padding: 14px 3%;
+*/
         }
         #plants {
             position: absolute;
@@ -81,7 +84,7 @@
             right: 40px;
             height: 359px;
             overflow-y: scroll;
-            color: #CAE4DB;
+            color: #AFB0B7;
             z-index: 1;
         }
         #plants li {
@@ -93,10 +96,10 @@
         }
         .county {
           stroke: #fff;
-          fill:#005DAA;
+          fill:#AFB0B7;
         }
         .hover {
-            fill: yellow;   
+            fill: #AFB0B7;   
         }
 
     </style>
@@ -158,10 +161,10 @@
             //stored within an array
          var plantsData = {}
             data.forEach(function(d,k){
-                if(plantsData[d.CNAME]) {
-                    plantsData[d.CNAME].counties.push(d.FIPS_ID);
+                if(plantsData[d.SNAME]) {
+                    plantsData[d.SNAME].counties.push(d.FIPS_ID);
                 } else {
-                    plantsData[d.CNAME] = {counties: [d.FIPS_ID]};
+                    plantsData[d.SNAME] = {counties: [d.FIPS_ID]};
                 }  
             });
          
@@ -182,8 +185,9 @@
             countyPlants = L.geoJson(counties, {
                 style: function(feature) {
                     return {
-                        color: '#505160',
-                        weight: 1,
+                        color: '#68829e',
+                        weight: 0.4,
+                        opacity: 0.6,
                         fillOpacity: 1,
                         fillColor: '#080706'
                         }
@@ -204,11 +208,11 @@
                  onEachFeature: function(feature, layer) {
                             var props = layer.feature.properties;
                       layer.on('click', function(e) {
-                                $("#county-plants").show().slideUp("slow");
+                                $("#county-plants").show();
                                       $('#info').show();
                       $("#county-plants").text(props.NAME + ' County:');
                      $('#info').html(getPlants(props.plants));
-                           layer.setStyle({ fillColor: '#68829E', fillOpacity: 1 });
+                           layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
      })
                         layer.on('mouseout', function(){
               $("#county-plants").hide();
@@ -237,7 +241,7 @@
             var props = e.layer.feature.properties.plants;
                 if ($('#info').html(getPlants(props))) {
                     
-                    e.layer.setStyle({ fillColor: '#505160', fillOpacity: 1 });
+                    e.layer.setStyle({ fillColor: '#AFB0B7', fillOpacity: 1 });
                     
                 } else ($('#info').html({fillColor: '#080706', fillOpacity: 1}));
             });
@@ -270,8 +274,8 @@
                                 var plants = layer.feature.properties.plants;
                                 console.log(plants);
                                     for(var plant in plants) {
-                                        if(selectedPlant === plants[plant].CNAME) {
-                                            layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
+                                        if(selectedPlant === plants[plant].SNAME) {
+                                            layer.setStyle({ fillColor: '#AFB0B7', fillOpacity: 1 });
                                         }
                                     }           
                             });
