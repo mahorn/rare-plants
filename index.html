@@ -17,14 +17,12 @@
     
 <style>
 
-    body {
+        body {
             padding: 0;
             margin: 0;
-            background: #505160;
+            bottom: 0;
             font-family: 'Pompiere', cursive;
-        background: url(plant.png);
-        
-        
+            background: url(plant.png);  
         }
         h1, #county-plants {
             position: absolute;
@@ -33,15 +31,14 @@
             font-family: 'Pompiere', cursive;
             font-size: 3em;
             font-weight: 300;
-            color: #AEBD38;
-            
-             
+            color: #DCAE1D;  
         }
         #county-plants {
             top: 150px;
-            left: 70px;
+            left: 80px;
             font-size: 1.5em;
             z-index: 3;
+            color: #7A9D96;
         }
         #map {
             position: absolute;
@@ -49,7 +46,6 @@
             bottom: 0;
             width: 100%; 
         }
-    
 /*
         footer {
             position: absolute;
@@ -66,10 +62,14 @@
             max-width: 245px; 
             display: none;
             overflow-y: scroll;
-            color: #68829E;
+            height: 100px;
+            color: #7A9D96;
             z-index: 2;
             left: 100px;
-            top: 210px;    
+            top: 210px; 
+            background: rgba(25,25,25,0.2);
+            border-radius: 5px;
+            padding: 14px 3%;
         }
         #plants {
             position: absolute;
@@ -81,7 +81,7 @@
             right: 40px;
             height: 359px;
             overflow-y: scroll;
-            color: #598234;
+            color: #CAE4DB;
             z-index: 1;
         }
         #plants li {
@@ -105,16 +105,15 @@
     <h1>Distribution of Rare Plants in Kentucky</h1>
     <ul id="county-plants"></ul>
     <ul id="plants"></ul>
-   
     <div id="info"></div>
     <div id="map"></div>
 
 <!--
-     <footer>
+    <footer>
         <p>Map authored by Maria Renee Horn</p>
     </footer>
 -->
-    
+
     <script>
         
         var options = {
@@ -125,13 +124,15 @@
             dragging: false,
             zoomControl: true
         }
+        
         var map = L.map('map', options);
          
         var tiles =  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png', {
-	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-	subdomains: 'abcd',
-	maxZoom: 19
-});
+	           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	           subdomains: 'abcd',
+	           maxZoom: 19,
+        });
+        
         map.addLayer(tiles);
         
         queue()
@@ -157,10 +158,10 @@
             //stored within an array
          var plantsData = {}
             data.forEach(function(d,k){
-                if(plantsData[d.SNAME]) {
-                    plantsData[d.SNAME].counties.push(d.FIPS_ID);
+                if(plantsData[d.CNAME]) {
+                    plantsData[d.CNAME].counties.push(d.FIPS_ID);
                 } else {
-                    plantsData[d.SNAME] = {counties: [d.FIPS_ID]};
+                    plantsData[d.CNAME] = {counties: [d.FIPS_ID]};
                 }  
             });
          
@@ -189,8 +190,8 @@
                 },
                
                 onEachFeature: function(feature, layer) {
-                    layer.on('mouseover', function(e) {
-                        $("#county-plants").show();
+                    layer.on('click', function(e) {
+                        $("#county-plants").show().slideUp("slow");
                             var name = layer.feature.properties.NAME;
                         $("#county-plants").text(name + ' County:');
                         
@@ -203,26 +204,32 @@
         }).addTo(map);
             
                     retrieveInfo();
-                    highlightCounties();          
+                    highlightCounties();  
+            
+            
         }
-                              
+        
+         function zoomToFeature(e) {
+             map.fitBounds(e.target.getBounds());
+         }  
+        
         function retrieveInfo() {
             var info = $('#info');
-                countyPlants.on('mouseover', function(e) {
+                countyPlants.on('click', function(e) {
                     info.show();
-                  
-                
+                    
+                      
             var props = e.layer.feature.properties.plants;
                 $('#info').html(getPlants(props));
-                    e.layer.setStyle({ fillColor: '#68829E', fillOpacity: 1 });
+                    e.layer.setStyle({ fillColor: '#505160', fillOpacity: 1 });
+                    
             });
              
-            
-                countyPlants.on('mouseout', function(e) {
-                    info.hide();
-                        e.layer.setStyle({ fillColor: '#080706', fillOpacity: 1});
-            
-            }); 
+//                countyPlants.on('mouseout', function(e) {
+//                    info.hide();
+//                        e.layer.setStyle({ fillColor: '#080706', fillOpacity: 1});
+//            
+//            }); 
            
         }
                                   
@@ -246,13 +253,14 @@
                                 var plants = layer.feature.properties.plants;
                                 console.log(plants);
                                     for(var plant in plants) {
-                                        if(selectedPlant === plants[plant].SNAME) {
+                                        if(selectedPlant === plants[plant].CNAME) {
                                             layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
                                         }
                                     }           
                             });
                 });
         }
+        
         
 </script>
 </body>
