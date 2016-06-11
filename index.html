@@ -188,65 +188,37 @@
                     }
                 },
 
-<<<<<<< HEAD
-                onEachFeature: function(feature, layer) {
-                    
-                    var props = layer.feature.properties;
-                      
-                        layer.on('mouseover', function(e) {
-                                
-                            $("#county-plants").show();
-                            $('#info').show();
-                            $("#county-plants").text(props.NAME + ' County:');
-                            $('#info').html(getPlants(props.plants));
-                        
-                            layer.setStyle({fillColor: '#A5C05B', fillOpacity: 1});
-                        })
-                        
-                        layer.on('mouseout', function() {
-                            
-                            $("#county-plants").hide();
-                            $('#info').hide();
-                            
-                            layer.setStyle({fillColor: '#080706', fillOpacity: 1});
-                        })
-                }
-        
-            }).addTo(map);
-            
-                    highlightCounties();  
-        }
-=======
                  onEachFeature: function(feature, layer) {
+                     
                       var props = layer.feature.properties;
-                      layer.on('click', function(e) {
-                         $("#county-plants").show();
-                         $('#info').show();
-                         $("#county-plants").text(props.NAME + ' County:');
-                         $('#info').html(getPlants(props.plants));
-                         layer.setStyle({ fillColor: '#AEBD38', fillOpacity: 1 });
-                       })
-                       layer.on('mouseout', function(){
+                     
+                        layer.on('mouseover', function(e) {
+                          
+                        $("#county-plants").show();
+                        $('#info').show();
+                        $("#county-plants").text(props.NAME + ' County:');
+                        $('#info').html(getPlants(props.plants));
+                         
+                        layer.setStyle({ fillColor: '#A5C05B', fillOpacity: 1});
+                       
+                        })
+                       
+                        layer.on('mouseout', function(){
+                            
                             $("#county-plants").hide();
                             $('#info').hide();
-                            layer.setStyle({ fillColor: '#080706', fillOpacity: 1 });
-                       });
-                   }
+                        
+                        layer.setStyle({ fillColor: '#080706', fillOpacity: 1});
+                       
+                        });
+                    }
+            
             }).addTo(map);
             
             highlightCounties();  
-            
-            
+              
         }
-        
-         function zoomToFeature(e) {
-             map.fitBounds(e.target.getBounds());
-         }  
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-                                  
+                   
          function getPlants(plants) {
              
             var outputText = '';
