@@ -93,6 +93,13 @@
             text-decoration: underline;
             cursor: pointer;
         }
+        #panel {
+            position: absolute;
+            bottom: 50px;
+            left: 30px;
+            color: aqua;
+            z-index: 4;
+        }
  
     </style>
 </head>
@@ -101,6 +108,7 @@
     <ul id="county-plants"></ul>
     <ul id="plants"></ul>
     <div id="info"></div>
+    <div id="panel"></div>
     <div id="map"></div>
     <footer>
         <p>Map authored by Maria Renee Horn</p>
@@ -113,7 +121,7 @@
             zoom: 7,
             minZoom: 7,
             maxZoom: 9,
-            dragging: false,
+            dragging: true,
             zoomControl: true,
             attributionControl: false
         }
@@ -150,13 +158,13 @@
             });
          
             var plantsData = {}
-            
+             
                 data.forEach(function(d,k){
                     
                     if(plantsData[d.SNAME]) { 
                         plantsData[d.SNAME].counties.push(d.FIPS_ID);
                     } else {
-                        plantsData[d.SNAME] = {counties: [d.FIPS_ID]};
+                        plantsData[d.SNAME] = {counties:[d.FIPS_ID]};
                     }  
                 });
          
