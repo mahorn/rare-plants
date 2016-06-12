@@ -220,7 +220,13 @@
                         layer.setStyle({ fillColor: '#080706', fillOpacity: 1});
                        
                         });
+                        
+                        var popupContent = layer.feature.properties.NAME;
+                        
+                        layer.bindPopup(popupContent);
                     }
+                
+                   
             
             }).addTo(map);
             
