@@ -35,7 +35,7 @@
         }
         #county-plants {
             top: 160px;
-            left: 98px;
+            left: 90px;
             font-size: 1.8em;
             z-index: 3;
             color: #A5C05B;
@@ -66,11 +66,14 @@
             font-size: 1em;
             max-width: 245px; 
             display: none;
+            background: rgba(25,25,25,0.2);
+            border-radius: 5px;
+            padding: 14px 3%;
             overflow-y: scroll;
             height: 343px;
             color: #7BA4A8;
             z-index: 2;
-            left: 140px;
+            left: 90px;
             top: 232px;
         }
         #plants {
@@ -153,10 +156,10 @@
              
                 data.forEach(function(d,k){
                     
-                    if(plantsData[d.SNAME]) { 
-                        plantsData[d.SNAME].counties.push(d.FIPS_ID);
+                    if(plantsData[d.CNAME]) { 
+                        plantsData[d.CNAME].counties.push(d.FIPS_ID);
                     } else {
-                        plantsData[d.SNAME] = {counties:[d.FIPS_ID]};
+                        plantsData[d.CNAME] = {counties:[d.FIPS_ID]};
                     }  
                 });
          
@@ -192,30 +195,32 @@
                      
                       var props = layer.feature.properties;
                      
-                        layer.on('mouseover', function(e) {
+                      layer.on('click', function(e) {
                           
                         $("#county-plants").show();
                         $('#info').show();
                         $("#county-plants").text(props.NAME + ' County:');
-                        $('#info').html(getPlants(props.plants));
+                        $('#info').html(getPlants(props.plants)) 
                          
                         layer.setStyle({ fillColor: '#A5C05B', fillOpacity: 1});
-                       
-                        })
-                       
-                        layer.on('mouseout', function(){
-                            
-                            $("#county-plants").hide();
-                            $('#info').hide();
-                        
-                        layer.setStyle({ fillColor: '#080706', fillOpacity: 1});
-                       
-                        });
-                        
-                        var popupContent = layer.feature.properties.NAME;
-                            layer.bindPopup(popupContent + " County");           
+                                      
+                      });
+                      
+//                        layer.off("click", function(e) {
+////                       
+/////                        layer.on('mouseout', function(){
+////////                            
+//                            $("#county-plants").hide();
+//                            $('#info').hide();
+////////                        
+//                        layer.setStyle({ fillColor: '#080706', fillOpacity: 1});
+////////                       
+//                        });
+//////                        
+//////                        var popupContent = layer.feature.properties.NAME;
+//////                            layer.bindPopup(popupContent + " County");           
                     }
-                
+               
             }).addTo(map);
             
             highlightCounties();  
@@ -228,7 +233,7 @@
              
                 for (var plant in plants) {
                     
-                    outputText += '<li>' + plants[plant].CNAME + '</li>'
+                    outputText += '<li>' + plants[plant].SNAME + '</li>'
                 }
             
             return outputText;     
@@ -250,7 +255,7 @@
                 
                 for(var plant in plants) {
                     
-                    if(selectedPlant === plants[plant].SNAME) {
+                    if(selectedPlant === plants[plant].CNAME) {
                         
                         layer.setStyle({fillColor: '#7BA4A8', fillOpacity: 1});
                         }
