@@ -239,34 +239,7 @@
         #plantInfoPanelFlowering p {
             text-align: left;
         }
-    #plantInfoPanelGlobal {
-            position: absolute;
-            bottom: 0px;
-            top: 700px;
-            right: 30px;
-            height: 10%;
-            width: 300px;
-            font-size: 1.1em;
-            z-index: 10;
-            color: #A5C05B;
-        }
-        #plantInfoPanelGlobal p {
-            text-align: left;
-        }
-    #plantInfoPanelVariety {
-            position: absolute;
-            bottom: 0px;
-            top: 750px;
-            right: 30px;
-            height: 10%;
-            width: 300px;
-            font-size: 1.1em;
-            z-index: 10;
-            color: #A5C05B;
-        }
-        #plantInfoPanelVariety p {
-            text-align: left;
-        }
+    
     #plantInfoPanelChart {
             position: absolute;
             bottom: 0px;
@@ -322,8 +295,6 @@
     <div id="plantInfoPanelFamily"></div>
     <div id="plantInfoPanelHabitat"></div>
     <div id="plantInfoPanelFlowering"></div>
-    <div id="plantInfoPanelGlobal"></div>
-    <div id="plantInfoPanelVariety"></div>
     <div id="plantInfoPanelChart"></div>
     <div id="plantInfoPanelRegion"></div>
     <div id="plantInfoPanelCount"></div>
@@ -497,8 +468,7 @@
                                 $("#plantInfoPanelFamily").show();
                                 $("#plantInfoPanelHabitat").show();
                                 $("#plantInfoPanelFlowering").show();
-                                $("#plantInfoPanelGlobal").show();
-                                $("#plantInfoPanelVariety").show();
+                                
                                 $("#plantInfoPanelChart").show();
                                 $("#plantInfoPanelRegion").show();
                                 $("#plantInfoPanelCount").show();
@@ -506,8 +476,7 @@
                                 $('#plantInfoPanelFamily').text("Family: " + plants[plant].FAMILY);
                                 $('#plantInfoPanelHabitat').text("Habitat: " + plants[plant].HABITAT);
                                 $('#plantInfoPanelFlowering').text("Flowering Period: " + plants[plant].FLOWERING);
-                                $('#plantInfoPanelGlobal').text("Global Description: " + plants[plant].GLOBAL);
-                                $('#plantInfoPanelVariety').text("Variety: " + plants[plant].GRANGECOM);
+                                
                                 $('#plantInfoPanelChart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
                                 $('#plantInfoPanelRegion').text("Region: " + plants[plant].REGION);
                                 $('#plantInfoPanelCount').text("Number of plants: " + plants[plant].COUNT);
@@ -520,8 +489,7 @@
                                 $('#plantInfoPanelFamily').hide();
                                 $('#plantInfoPanelHabitat').hide();
                                 $('#plantInfoPanelFlowering').hide();
-                                $('#plantInfoPanelGlobal').hide();
-                                $('#plantInfoPanelVariety').hide();
+                                
                                 $('#plantInfoPanelChart').hide();
                                 $('#plantInfoPanelRegion').hide();
                                 $('#plantInfoPanelCount').hide();
