@@ -100,7 +100,7 @@
             border-radius: 5px;
             overflow-y: scroll;
             color: #7BA4A8;
-            z-index: 7  ;
+            z-index: 7;
         }
         #info li:hover {
             text-decoration: underline;
@@ -153,10 +153,8 @@
             position: absolute;
             top: 15px;
             left: 8px;
-
             margin: 12px 0 8px; 
             padding: 0 25px 0 15px;
-
             color: #7BA4A8;
             text-align: left;
             font-size: 1.em; 
@@ -211,35 +209,8 @@
         }
         #plantInfoPanelFlowering p {
             text-align: left;
-        }
-<<<<<<< HEAD
-    
-    #plantInfoPanelChart {
-            position: absolute;
-            bottom: 0px;
-            top: 850px;
-            right: 30px;
-            height: 10%;
-            width: 300px;
-=======
-        #plantInfoPanelGlobal {
-            font-size: 1.1em;
-            z-index: 10;
-            color: #A5C05B;
-        }
-        #plantInfoPanelGlobal p {
-            text-align: left;
-        }
-        #plantInfoPanelVariety {
-            font-size: 1.1em;
-            z-index: 10;
-            color: #A5C05B;
-        }
-        #plantInfoPanelVariety p {
-            text-align: left;
-        }
+        }   
         #plantInfoPanelChart {
->>>>>>> origin/my-plants
             font-size: 1.1em;
             z-index: 10;
             color: #A5C05B;
@@ -263,7 +234,6 @@
         #plantInfoPanelCount p {
             text-align: left;
         }
-       
     </style>
 </head>
 <body>
@@ -280,30 +250,17 @@
         <div id="plantInfoPanelFamily"></div>
         <div id="plantInfoPanelHabitat"></div>
         <div id="plantInfoPanelFlowering"></div>
-        <div id="plantInfoPanelGlobal"></div>
-        <div id="plantInfoPanelVariety"></div>
         <div id="plantInfoPanelChart"></div>
         <div id="plantInfoPanelRegion"></div>
         <div id="plantInfoPanelCount"></div>
     </div>
+    
     <ul id="greeting"></ul>
-    
     <ul id="greetingList"></ul>
-<<<<<<< HEAD
-    <div id="plantInfoPanelFamily"></div>
-    <div id="plantInfoPanelHabitat"></div>
-    <div id="plantInfoPanelFlowering"></div>
-    <div id="plantInfoPanelChart"></div>
-    <div id="plantInfoPanelRegion"></div>
-    <div id="plantInfoPanelCount"></div>
-    <ul id="county-plants"></ul>
-=======
-
-    
->>>>>>> origin/my-plants
     <ul id="plants"></ul>
 
     <div id="map"></div>
+    
     <footer>
         <p>Map authored by Maria Renee Horn</p>
     </footer>
@@ -407,7 +364,6 @@
                         fillColor: 'black'
                     }
                 }
-             
                
             }).addTo(map);
 
@@ -476,7 +432,7 @@
                 var selectedPlant = $(e.target).html();       
                 countyPlants.eachLayer (function(layer) {   
                     var plants = layer.feature.properties.plants;
-<<<<<<< HEAD
+
                        for(var plant in plants) { 
                             if (selectedPlant === plants[plant].SNAME) {
                     
@@ -513,61 +469,9 @@
                                 })      
                             }
                         }   
-=======
-                    for(var plant in plants) { 
-                        if (selectedPlant === plants[plant].SNAME) {
-
-                            $("#plantInfoPanel").show();
-                            $("#plantInfoPanelFamily").show();
-                            $("#plantInfoPanelHabitat").show();
-                            $("#plantInfoPanelFlowering").show();
-                            $("#plantInfoPanelGlobal").show();
-                            $("#plantInfoPanelVariety").show();
-                            $("#plantInfoPanelChart").show();
-                            $("#plantInfoPanelRegion").show();
-                            $("#plantInfoPanelCount").show();
-                            $('#plantInfoPanel').text("Common Name: " + plants[plant].CNAME);
-                            $('#plantInfoPanelFamily').text("Family: " + plants[plant].FAMILY);
-                            $('#plantInfoPanelHabitat').text("Habitat: " + plants[plant].HABITAT);
-                            $('#plantInfoPanelFlowering').text("Flowering Period: " + plants[plant].FLOWERING);
-                            $('#plantInfoPanelGlobal').text("Global Description: " + plants[plant].GLOBAL);
-                            $('#plantInfoPanelVariety').text("Variety: " + plants[plant].GRANGECOM);
-                            $('#plantInfoPanelChart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
-                            $('#plantInfoPanelRegion').text("Region: " + plants[plant].REGION);
-                            $('#plantInfoPanelCount').text("Number of plants: " + plants[plant].COUNT);
-
-                            } else {
-
-                        info.on('mouseout', function (e) {
-
-//                            $('#plantInfoPanel').hide();
-//                            $('#plantInfoPanelFamily').hide();
-//                            $('#plantInfoPanelHabitat').hide();
-//                            $('#plantInfoPanelFlowering').hide();
-//                            $('#plantInfoPanelGlobal').hide();
-//                            $('#plantInfoPanelVariety').hide();
-//                            $('#plantInfoPanelChart').hide();
-//                            $('#plantInfoPanelRegion').hide();
-//                            $('#plantInfoPanelCount').hide();
-
-                            })      
-                        }
-                    }   
->>>>>>> origin/my-plants
+                    
                     });
                 });
-                        
-//                        info.on('mouseover', function(e) {
-//                            var greeting = "Please click on a plant and scroll bar";
-//                        
-//                            $("#greetingPlant").show();   
-//                            $('#greetingPlant').text(greeting);      
-//                        })
-//        
-//                        info.on('mouseout', function(e) {
-//                            $("#greetingPlant").hide();
-//                            
-//                        }) 
         }
                                            
 </script>
