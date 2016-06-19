@@ -204,7 +204,7 @@
             color: #A3A599;
             z-index: 6;
             padding: 0 0 6px 0;
-        }    
+        }  
         #family {
             font-size: 1em;
             color: #A3A599;
@@ -354,7 +354,6 @@
                         plantsList.html(listItems);
          
                         makeMap(counties, plantsData);
-                        createInfoPanel(); 
         } 
         
         function makeMap(counties, plantsData) {
@@ -441,51 +440,21 @@
                                 $('#flowering').text("Flowering Period: " + plants[plant].FLOWERING);
                                 $('#chart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
                                 $('#count').text("Number of plants: " + plants[plant].COUNT);
-                        }
+                        } 
                     }           
                 });
-            });          
+            }); 
+            list.on('mouseout', function(e) { 
+                                $("#species").hide();
+                                $("#family").hide();
+                                $("#habitat").hide();
+                                $("#flowering").hide();
+                                $("#chart").hide();
+                                $("#count").hide();
+                
+                 countyPlants.setStyle({fillColor: '#080706', fillOpacity: 1, color: '#A3A599', weight: 0.5, opacity: 0.5});  
+            })
         }
-        
-        function createInfoPanel(){
-            var info = $('#info');
-            info.on('click', function (e) {                     
-                var selectedPlant = $(e.target).html();       
-                countyPlants.eachLayer (function(layer) {   
-                    var plants = layer.feature.properties.plants;
-
-                       for(var plant in plants) { 
-                            if (selectedPlant === plants[plant].SNAME) {
-                    
-                                $("#species").show();
-                                $("#family").show();
-                                $("#habitat").show();
-                                $("#flowering").show();
-                                $("#chart").show();
-                                $("#count").show();
-                                $('#species').text("Commun Name: " + plants[plant].CNAME);
-                                $('#family').text("Family: " + plants[plant].FAMILY);
-                                $('#habitat').text("Habitat: " + plants[plant].HABITAT);
-                                $('#flowering').text("Flowering Period: " + plants[plant].FLOWERING);
-                                $('#chart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
-                                $('#count').text("Number of plants: " + plants[plant].COUNT);
-                            
-                                } else {
-                                   
-                            info.on('click', function (e) {
-                                
-                                $('#species').hide();
-                                $('#family').hide();
-                                $('#habitat').hide();
-                                $('#flowering').hide();
-                                $('#chart').hide();
-                                $('#count').hide();
-                                })
-                            }
-                        }                
-                    }); 
-                });
-          }
                                            
 </script>
 </body>
