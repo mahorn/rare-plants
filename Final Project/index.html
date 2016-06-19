@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>d3 Distribution of Rare Plants in Kentucky</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+
+
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background: black;
+            font-family: Montserrat, sans-serif;
+            color: aqua;
+        }
+        h1 {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            font-family: "Proxima Nova", Montserrat, sans-serif;
+            font-size: 2em;
+            font-weight: 100;
+            color: #005DAA;  
+        }
+        #county-plants {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            font-family: "Proxima Nova", Montserrat, sans-serif;
+            font-size: 2em;
+            font-weight: 100;
+            color: white;
+        }
+        #county-plants {
+            top: 50px;
+            font-size: 1em;
+        }
+
+        #map {
+            position: absolute;
+            right: 100px;
+            bottom: 140px;
+            width: 1000;
+            height: 900;
+            margin: 0 auto 20px;
+            border: 1px solid #4c3f54;
+            background: gray;
+        
+        }
+
+        #plants {
+            position: absolute;
+            width: 260px;
+            right: 15px;
+            height: 600px;
+            overflow-y: scroll;
+            color: greenyellow;
+        }
+        #plants li {
+            font-size: 1em;
+        }
+        #plants li:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .county {
+          stroke: #fff;
+          fill:#005DAA;
+        }
+        .hover {
+            fill: yellow;   
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <h1>Distribution of Rare Plants in Kentucky</h1>
+    <ul id="county-plants"></ul>
+    <ul id="plants"></ul>
+    <div id="map"></div>
+  
+<script>
+    
+     queue()
+        .defer(d3.csv, 'data_project.csv')
+        .defer(d3.json, 'ky-counties.json')
+        .await(ready);
+    
+     function ready(err, data, counties) {
+        
+          // add specific plants found within each county to
+          // each county's properites
+          counties.features.forEach(function(county,i) {
+              console.log(county);
+              
+              county.properties.plants = {};
+          
+              data.forEach(function(d,j){
+         
+                if(county.properties["STATE_FIP"] + 
+                   county.properties["COUNTY_FIP"] === d["FIPS_ID"]) {
+                  
+                    county.properties.plants[j] = d;
+                }
+                       
+             });
+         });
+         
+         // build up an object of the different species of plants
+         // plant name is the key, counties found within in as the value,
+         // stored within an array
+         var plantsData = {}
+         
+         data.forEach(function(d,k){
+             console.log(d,k);
+             
+             if(plantsData[d.CNAME]) {
+                 plantsData[d.CNAME].counties.push(d.FIPS_ID);
+             } else {
+                 plantsData[d.CNAME] = {counties: [d.FIPS_ID]};
+             }  
+         });
+         
+         
+         // dynamically create a list of the available plants
+         var plantsList = d3.select('#plants'),
+             listItems = '';
+         
+         for(var plant in plantsData) {
+             listItems += '<li>'+plant+'</li>';
+         }
+         // add this list to the DOM
+         plantsList.html(listItems);
+         
+         
+
+         
+         
+         // draw the map
+        var width = 1000,
+            height = 600;
+
+        var svg = d3.select( "body" )
+              .append( "svg" )
+              .attr( "width", width )
+              .attr( "height", height );
+
+        var projection = d3.geo.albers()
+            .center([0, 37.8])
+            .rotate([85.8,0])
+            .scale(8500)
+            .translate([width / 2, height / 2]);
+
+        var geoPath = d3.geo.path()
+            .projection(projection);
+
+        var counties = svg.append("g")
+            .selectAll("path")
+            .data(counties.features)
+            .enter()
+            .append("path")
+            .attr( "d", geoPath )
+            .attr("class","county")
+//            .on("mouseover", function(d){
+//                d3.select("#county-plants").html(getPlants(d.properties.plants));
+//                d3.select(this).attr("class","county hover");
+//            })
+//            .on("mouseout", function(d){
+//                d3.select("#county-plants").text("");
+//                d3.select(this).attr("class","county");
+//            });
+         
+         
+            // select all the plant list items
+            d3.selectAll('#plants li')
+                // when mousing over
+                .on('mouseover', function(d) {
+                    // first make sure we've removed the hover class from all
+                    counties.attr("class","county");
+                    
+                    // store ref to current plant in the list being selected
+                    var currentSelection = d3.select(this).html();
+            
+                    // loop through all the counties
+                    // and check to see if they contain that plant
+                    counties.each(function(d) {
+                        for(var plant in d.properties.plants){
+                            if(d.properties.plants[plant].CNAME == currentSelection) {
+                                // if so, apply the hover
+                                d3.select(this).attr("class","county hover");
+                                 
+                            } 
+
+                        }
+                    })
+             
+            });
+         
+            // when mousing off the list, return all counties to non hover state
+            plantsList.on('mouseout', function() {
+                counties.attr("class","county");
+            })
+         
+         
+             
+             function getPlants(plants) {
+                // function loops through specific county's plants
+                // and generates a list for output
+                var outputText = '';
+
+                for(var plant in plants) {
+                    outputText += '<li>' + plants[plant].CNAME + '</li>'
+                }
+
+                return outputText;
+            }
+         
+         
+     } // end ready
+ 
+</script>
+</body>
+</html>
+

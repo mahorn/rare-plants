@@ -28,7 +28,7 @@
         h1 {
             position: absolute;
             left: 80px;
-            top: 10px;
+            top: 0;
             font-family: 'Pompiere', cursive;
             font-size: 3em;
             font-weight: 300;
@@ -36,71 +36,79 @@
         }
         h2 {
             position: absolute;
-            left: 40px;
-            top: 202px;
+            left: 80px;
+            top: 162px;
             font-family: 'Pompiere', cursive;
             font-size: 1.5em;
             font-weight: 300;
             color: #7BA4A8;  
-            z-index: 2;
+            z-index: 1;
         }
         #map {
             position: absolute;
-            top: 140px;
+            top: 120px;
             bottom: 0;
             width: 100%;    
         }
+
         footer {
             position: absolute;
             width: 100%;
-            height: 60px;
+            height: 70px;
             bottom: 0;
-            color: #7BA4A8;
+            color: #232122;
             background: #A5C05B;
-            z-index: 6;
+            z-index: 2;
         }
-        p {     
-            position: absolute;
+        p { 
+            position: relative;
             font-size: 1em;
-            font-weight: 500;
-            right: 90px;
-            bottom: 0;
+            font-weight: 300;
+            left: 80px;
+            line-height: 0.5;
         }
         #greeting {
             position: absolute;
             font-family: 'Pompiere', cursive;
             color: #A3A599;
-            font-size: 1.3em;
+            font-size: 1em;
             font-weight: 300;
-            left: 40%;
-            top: 25%;
-            z-index: 11;
+            right: 50%;
+            top: 35%;
+            z-index: 3;
         }
         #greeting li:hover { 
             cursor: pointer;      
         }
         #greetingPlant {
+            position: relative;
             font-family: 'Pompiere', cursive;
             color: #A3A599;
             font-size: 1em;
-            z-index: 11;
+            font-weight: 300;
+            left: 12%;
+            top: 0;
         }
         #county-plants {
-            margin-top: 64px;
-            margin-left: 24px;
-            font-size: 1.6em;
-            z-index: 8;
+            margin-top: 57px;
+            margin-left: 28px;
+            margin-bottom: 13px;
+            font-size: 1.3em;
+            z-index: 4;
             color: #A5C05B;
+            font-weight: 300;
         }
         #info {
             font-size: 0.9em;
-            max-width: 245px; 
+            max-width: 180px; 
             display: none;
             background: rgba(25,25,25,0.2);
             border-radius: 5px;
             overflow-y: scroll;
             color: #7BA4A8;
-            z-index: 7;
+            z-index: 5;
+            margin-top: 0;
+            height: 355px
         }
         #info li:hover {
             text-decoration: underline;
@@ -111,13 +119,13 @@
             background: rgba(25,25,25,0.2);
             border-radius: 5px;
             padding: 8px 0 8px 16px;
-            width: 198px;
-            top: 240px;
-            left: 40px;
-            height: 350px;
+            width: 180px;
+            top: 200px;
+            left: 80px;
+            height: 450px;
             overflow-y: scroll;
             color: #7BA4A8;
-            z-index: 1;
+            z-index: 5;
         }
         #plants li {
             font-size: .9em;
@@ -125,7 +133,6 @@
         #plants li:hover {
             text-decoration: underline;
             cursor: pointer;
-            font-size: 1.2em;
         }
         #greetingList {
             position: absolute;
@@ -133,33 +140,45 @@
             color: #A3A599;
             font-size: 1em;
             font-weight: 300;
-            left: 40px;
-            top: 150px;
-            z-index: 11;
+            left: 80px;
+            top: 130px;
+            z-index: 3;
+        }
+        #content {
+            z-index: 14;
+            width: 1200px;
+            height: 260px;
+            padding: 10px;
+            margin: 65px;
+            position: absolute;
+            top: 680px;
+            left: 0;
+            color: #A5C05B;
         }
         #side-panel {
             position: absolute;
             right: 0;
+            left: 78%;
             top: 140px;
             bottom: 0;
             width: 28%;
-            background: black;
-            opacity: 0.5;
             overflow-y: scroll;
             z-index: 5;   
+            
             display: none;
         }
         #side-panel h2 {
             position: absolute;
-            top: 15px;
-            left: 8px;
+            top: 26px;
+            left: 12px;
             margin: 12px 0 8px; 
             padding: 0 25px 0 15px;
             color: #7BA4A8;
             text-align: left;
-            font-size: 1.em; 
+            font-size: 1.5em; 
             width: 300px;
         }
+
         #side-panel p {
             position: absolute;
             margin: 12px 0 8px; 
@@ -170,6 +189,7 @@
             font-weight: 300;
             width: 200px;
         }
+
         #side-panel p:after {
             content: '';
             display: block;
@@ -178,101 +198,81 @@
         #side-panel  div {
             margin: 4px 26px 0;
         }
-        #plantInfoPanel{
-            font-size: 1.1em;
-            color: #A5C05B;
-            z-index: 9;
+        #side-panel p {
+            text-align: left;
+        }
+        #species {
+            font-size: 1em;
+            color: #7BA4A8;
+            z-index: 6;
         }    
-        #plantInfoPanel p{
-            text-align: left;
-        }    
-        #plantInfoPanelFamily {
-            font-size: 1.1em;
-            color: #A5C05B;
-            z-index: 9;
+        #family {
+            font-size: 1em;
+            color: #7BA4A8;
+            z-index: 6;     
         }
-        #plantInfoPanelFamily p {
-            text-align: left;
+        #habitat {
+            font-size: 1em;
+            z-index: 6;
+            color: #7BA4A8;    
         }
-        #plantInfoPanelHabitat {
-            font-size: 1.1em;
-            z-index: 10;
-            color: #A5C05B;
-        }
-        #plantInfoPanelHabitat p {
-            text-align: left;
-        }
-        #plantInfoPanelFlowering {
-            font-size: 1.1em;
-            z-index: 10;
-            color: #A5C05B;
-        }
-        #plantInfoPanelFlowering p {
-            text-align: left;
+        #flowering {  
+            font-size: 1em;
+            z-index: 6;
+            color: #7BA4A8;   
         }   
-        #plantInfoPanelChart {
-            font-size: 1.1em;
-            z-index: 10;
-            color: #A5C05B;
+        #chart {
+            font-size: 1em;
+            z-index: 6;
+            color: #7BA4A8;
         }
-        #plantInfoPanelChart p {
-            text-align: left;
+        #count {
+            font-size: 1em;
+            z-index: 6;
+            color: #7BA4A8;  
         }
-        #plantInfoPanelRegion {
-            font-size: 1.1em;
-            z-index: 11;
-            color: #A5C05B;
-        }
-        #plantInfoPanelRegion p {
-            text-align: left;
-        }
-        #plantInfoPanelCount {
-            font-size: 1.1em;
-            z-index: 12;
-            color: #A5C05B;
-        }
-        #plantInfoPanelCount p {
-            text-align: left;
-        }
+        
     </style>
 </head>
 <body>
+    
     <h1>Distribution of Rare Plants in Kentucky</h1>
-    <h2>List of Species by Common Name</h2>
+    <h2>Species by Common Name</h2>
     
-    <div id="side-panel">
-    
-        <h2>List of Species by Scientific Name</h2>
-        <div id="greetingPlant">Please click on a plant and scroll bar</div>
+    <div id="side-panel"> 
+        <h2>Species by Scientific Name</h2>
+        <div id="greetingPlant">*Scroll down species list</div>
         <h3 id="county-plants"></h3>
-        <ul id="info"></ul>
-        <div id="plantInfoPanel"></div>
-        <div id="plantInfoPanelFamily"></div>
-        <div id="plantInfoPanelHabitat"></div>
-        <div id="plantInfoPanelFlowering"></div>
-        <div id="plantInfoPanelChart"></div>
-        <div id="plantInfoPanelRegion"></div>
-        <div id="plantInfoPanelCount"></div>
+        <ul id="info"></ul> 
+    </div>
+    
+    <div id="content">
+        <div id="species"></div>
+        <div id="family"></div>
+        <div id="habitat"></div>
+        <div id="flowering"></div>
+        <div id="chart"></div>
+        <div id="count"></div>
     </div>
     
     <ul id="greeting"></ul>
     <ul id="greetingList"></ul>
     <ul id="plants"></ul>
-
     <div id="map"></div>
     
     <footer>
         <p>Map authored by Maria Renee Horn</p>
+        <p>Data: Kentucky State Nature Preserves Commission</p>
     </footer>
     
     <script>
         
         var options = {
             center: [38.2, -84.4],
-            zoom: 7,
+            zoom:7,
             minZoom: 7,
-            maxZoom: 10,
-            maxBounds: L.latLngBounds([37.8,-84.8], [38.6,-83.6]),
+            maxZoom: 8,
+            maxBounds: L.latLngBounds([37.4,-85], [37,-86.4]),
             zoomControl: true,
             attributionControl: false
         }
@@ -286,10 +286,11 @@
         });
         
         map.addLayer(tiles);
-    
+        
         map.on('mouseover', function(e) {
-            var greeting = "Please click on a county";
-            var hovering = "Hover on species list to see distribution in Kentucky and scroll bar";
+            
+            var greeting = "* Please click on a county";
+            var hovering = "* Scroll down and/or hover over species name to see distribution";
             
                 $("#greeting").show(); 
                 $("#greetingList").show();
@@ -357,11 +358,11 @@
                 style: function(feature) {
                     
                     return {
-                        color: '#232122',
-                        weight: 1,
-                        opacity: 1,
+                        color: '#A3A599',
+                        weight: 0.5,
+                        opacity: 0.5,
                         fillOpacity: 1,
-                        fillColor: 'black'
+                        fillColor: '#080706'
                     }
                 }
                
@@ -414,12 +415,26 @@
             var list = $('#plants');
                 list.on('mouseover', function(e) {   
             var selectedPlant = $(e.target).html(); 
-                countyPlants.setStyle({fillColor: '#080706', fillOpacity: 1});  
+                countyPlants.setStyle({fillColor: '#080706', fillOpacity: 1, color: '#A3A599', weight: 0.5, opacity: 0.5});  
                 countyPlants.eachLayer (function(layer) { 
-            var plants = layer.feature.properties.plants;
+            
+            var plants = layer.feature.properties.plants;        
                 for(var plant in plants) { 
                     if(selectedPlant === plants[plant].CNAME) {
-                        layer.setStyle({fillColor: '#7BA4A8', fillOpacity: 1});
+                        layer.setStyle({fillColor: '#7BA4A8', fillOpacity: 1, color: '#080706', weight: 0.5, opacity: 0.5});
+                        
+                                $("#species").show();
+                                $("#family").show();
+                                $("#habitat").show();
+                                $("#flowering").show();
+                                $("#chart").show();
+                                $("#count").show();
+                                $('#species').text("Scientific Name: " + plants[plant].SNAME);
+                                $('#family').text("Family: " + plants[plant].FAMILY);
+                                $('#habitat').text("Habitat: " + plants[plant].HABITAT);
+                                $('#flowering').text("Flowering Period: " + plants[plant].FLOWERING);
+                                $('#chart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
+                                $('#count').text("Number of plants: " + plants[plant].COUNT);
                         }
                     }           
                 });
@@ -436,43 +451,35 @@
                        for(var plant in plants) { 
                             if (selectedPlant === plants[plant].SNAME) {
                     
-                                $("#plantInfoPanel").show();
-                                $("#plantInfoPanelFamily").show();
-                                $("#plantInfoPanelHabitat").show();
-                                $("#plantInfoPanelFlowering").show();
-                                
-                                $("#plantInfoPanelChart").show();
-                                $("#plantInfoPanelRegion").show();
-                                $("#plantInfoPanelCount").show();
-                                $('#plantInfoPanel').text("Common Name: " + plants[plant].CNAME);
-                                $('#plantInfoPanelFamily').text("Family: " + plants[plant].FAMILY);
-                                $('#plantInfoPanelHabitat').text("Habitat: " + plants[plant].HABITAT);
-                                $('#plantInfoPanelFlowering').text("Flowering Period: " + plants[plant].FLOWERING);
-                                
-                                $('#plantInfoPanelChart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
-                                $('#plantInfoPanelRegion').text("Region: " + plants[plant].REGION);
-                                $('#plantInfoPanelCount').text("Number of plants: " + plants[plant].COUNT);
-                                
+                                $("#species").show();
+                                $("#family").show();
+                                $("#habitat").show();
+                                $("#flowering").show();
+                                $("#chart").show();
+                                $("#count").show();
+                                $('#species').text("Commun Name: " + plants[plant].CNAME);
+                                $('#family').text("Family: " + plants[plant].FAMILY);
+                                $('#habitat').text("Habitat: " + plants[plant].HABITAT);
+                                $('#flowering').text("Flowering Period: " + plants[plant].FLOWERING);
+                                $('#chart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
+                                $('#count').text("Number of plants: " + plants[plant].COUNT);
+                            
                                 } else {
-                                    
-                            info.on('mouseout', function (e) {
+                                   
+                            info.on('click', function (e) {
                                 
-                                $('#plantInfoPanel').hide();
-                                $('#plantInfoPanelFamily').hide();
-                                $('#plantInfoPanelHabitat').hide();
-                                $('#plantInfoPanelFlowering').hide();
-                                
-                                $('#plantInfoPanelChart').hide();
-                                $('#plantInfoPanelRegion').hide();
-                                $('#plantInfoPanelCount').hide();
-                                
-                                })      
+                                $('#species').hide();
+                                $('#family').hide();
+                                $('#habitat').hide();
+                                $('#flowering').hide();
+                                $('#chart').hide();
+                                $('#count').hide();
+                                })
                             }
-                        }   
-                    
-                    });
+                        }                
+                    }); 
                 });
-        }
+          }
                                            
 </script>
 </body>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Distribution of Rare Plants in Kentucky</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
+    
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+
+    <link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
+    <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+    
+<style>
+
+    body {
+            padding: 0;
+            margin: 0;
+            background: whitesmoke;
+            font-family: Montserrat, sans-serif;
+        }
+        h1, #county-plants {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            font-family: "Proxima Nova", Montserrat, sans-serif;
+            font-size: 2em;
+            font-weight: 100;
+            color: #005DAA;
+        }
+        #county-plants {
+            top: 50px;
+            font-size: 1em;
+        }
+        #map {
+            position: absolute;
+            right: 300px;
+            bottom: 0;
+            width: 900px;
+            height: 600px;
+        }
+        #plants {
+            position: absolute;
+            width: 260px;
+            right: 15px;
+            height: 600px;
+            overflow-y: scroll;
+        }
+        #plants li {
+            font-size: .9em;
+        }
+        #plants li:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .county {
+          stroke: #fff;
+          fill:#005DAA;
+        }
+        .hover {
+            fill: yellow;   
+        }
+    </style>
+</head>
+<body>
+    <h1>Distribution of Rare Plants in Kentucky</h1>
+    <ul id="county-plants"></ul>
+    <ul id="plants"></ul>
+    <div id="map"></div>
+
+    <script>
+        
+
+        var options = {
+            center: [38.2, -85.8],
+            zoom: 7,
+            minZoom: 7,
+            maxZoom: 9,
+            dragging: true,
+            zoomControl: true
+        }
+        var map = L.map('map', options);
+        
+                
+        var tiles = L.tileLayer('http://{s}.tile.stamen.com/toner-background/{z}/{x}/{y}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            subdomains: 'abcd',
+            minZoom: 7,
+            maxZoom: 9,
+            ext: 'png'
+        });
+        map.addLayer(tiles);
+        
+    queue()
+        .defer(d3.csv, 'data_project.csv')
+        .defer(d3.json, 'ky-counties.json')
+        .await(ready);
+    
+     function ready(err, data, counties) {
+         console.log(data, counties);
+        
+
+          // add specific plants found within each county to
+          // each county's properites
+          counties.features.forEach(function(county,i) {
+              console.log(county);
+              
+              county.properties.plants = {};
+          
+              data.forEach(function(d,j){
+         
+                if(county.properties["STATE_FIP"] + 
+                   county.properties["COUNTY_FIP"] === d["FIPS_ID"]) {
+                  
+                    county.properties.plants[j] = d;
+                }
+                       
+             });
+         });
+         
+         // build up an object of the different species of plants
+         // plant name is the key, counties found within in as the value,
+         // stored within an array
+         var plantsData = {}
+         
+         data.forEach(function(d,k){
+             
+             if(plantsData[d.CNAME]) {
+                 plantsData[d.CNAME].counties.push(d.FIPS_ID);
+             } else {
+                 plantsData[d.CNAME] = {counties: [d.FIPS_ID]};
+             }  
+         });
+         
+         
+         // dynamically create a list of the available plants
+         var plantsList = d3.select('#plants'),
+             listItems = '';
+         
+         for(var plant in plantsData) {
+             listItems += '<li>'+plant+'</li>';
+         }
+         // add this list to the DOM
+         plantsList.html(listItems);
+         
+         makeMap(counties, plantsData);
+        
+     } // end ready
+        
+     function makeMap(counties, plantsData) {
+        
+         // you have access to counties and plantsData here
+         
+         L.geoJson(counties).addTo(map);
+         
+         
+     }
+
+ 
+</script>
+</body>
+</html>
+
