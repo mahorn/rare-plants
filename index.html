@@ -229,7 +229,7 @@
             color: #A3A599;
             padding: 0 0 6px 0;
         }
-        #count {
+        #type {
             font-size: 1em;
             z-index: 6;
             color: #A3A599;
@@ -255,10 +255,10 @@
     <div id="content">
         <div id="species"></div>
         <div id="family"></div>
+        <div id="type"></div>
         <div id="habitat"></div>
         <div id="flowering"></div>
         <div id="chart"></div>
-        <div id="count"></div>
     </div>
     
     <ul id="greeting"></ul>
@@ -430,16 +430,16 @@
                         
                                 $("#species").show();
                                 $("#family").show();
+                                $("#type").show();
                                 $("#habitat").show();
                                 $("#flowering").show();
                                 $("#chart").show();
-                                $("#count").show();
                                 $('#species').text("Scientific Name: " + plants[plant].SNAME);
                                 $('#family').text("Family: " + plants[plant].FAMILY);
                                 $('#habitat').text("Habitat: " + plants[plant].HABITAT);
+                                $('#type').text("Type: " + plants[plant].TYPE);
                                 $('#flowering').text("Flowering Period: " + plants[plant].FLOWERING);
                                 $('#chart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
-                                $('#count').text("Number of plants: " + plants[plant].COUNT);
                         } 
                     }           
                 });
@@ -447,6 +447,7 @@
             list.on('mouseout', function(e) { 
                                 $("#species").hide();
                                 $("#family").hide();
+                                $("#type").hide();
                                 $("#habitat").hide();
                                 $("#flowering").hide();
                                 $("#chart").hide();
