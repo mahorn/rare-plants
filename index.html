@@ -164,7 +164,6 @@
             width: 28%;
             overflow-y: scroll;
             z-index: 5;   
-            
             display: none;
         }
         #side-panel h2 {
@@ -195,9 +194,6 @@
         }
         #side-panel  div {
             margin: 4px 26px 0;
-        }
-        #side-panel p {
-            text-align: left;
         }
         #species {
             font-size: 1em;
@@ -235,6 +231,12 @@
             color: #A3A599;
             padding: 0 0 6px 0;
         }
+        #name {
+            font-size: 1em;
+            z-index: 6;
+            color: #A3A599;
+            padding: 0 0 6px 0;
+        }
         a {
             color: #232122;
         } 
@@ -247,9 +249,10 @@
     
     <div id="side-panel"> 
         <h2>Species by Scientific Name</h2>
-        <div id="greetingPlant">*Scroll down species list</div>
+        <div id="greetingPlant">*Scroll down and/or click over species name</div>
         <h3 id="county-plants"></h3>
         <ul id="info"></ul> 
+        <div id="name"></div>
     </div>
     
     <div id="content">
@@ -260,7 +263,7 @@
         <div id="flowering"></div>
         <div id="chart"></div>
     </div>
-    
+
     <ul id="greeting"></ul>
     <ul id="greetingList"></ul>
     <ul id="plants"></ul>
@@ -328,8 +331,8 @@
                             
                        county.properties.plants[j] = d;
                     }
-                });
-            });
+                })
+            })
                
             var plantsData = {}
              
@@ -341,7 +344,7 @@
                         plantsData[d.CNAME] = {counties:[d.FIPS_ID]};
                     } 
                        
-                });
+                })
             
             var plantsList = d3.select('#plants'),
                 
@@ -354,6 +357,7 @@
                         plantsList.html(listItems);
          
                         makeMap(counties, plantsData);
+                        createInfoPanel();
         } 
         
         function makeMap(counties, plantsData) {
@@ -377,6 +381,7 @@
             countyPlants.eachLayer(function(layer) {
                
                 var props = layer.feature.properties;
+                console.log(props);
 
                 layer.on('click', function(e) {
 
@@ -387,13 +392,13 @@
                     $("#info").show(); 
                     $("#greetingPlant").show();   
                     $("#county-plants").text(props.NAME + ' County:');
-                    $('#info').html(getPlants(props.plants));  
+                    $('#info').html(getPlants(props.plants)); 
 
                     layer.setStyle({ fillColor: '#A5C05B' });
                     
-                });
+                })
             
-            });
+            })
             
             map.on('click', function() {
                 countyPlants.setStyle({ fillColor: 'black' });
@@ -401,7 +406,7 @@
                 $("#county-plants").hide();
                 $("#info").hide(); 
                 $("#greetingPlant").hide();  
-            });
+            })
             
             highlightCounties();  
               
@@ -442,18 +447,46 @@
                                 $('#chart').text("Diagram Chart: " + plants[plant].DIAGCHARS);
                         } 
                     }           
-                });
-            }); 
-            list.on('mouseout', function(e) { 
+                })
+            }) 
+            
+                list.on('mouseout', function(e) { 
                                 $("#species").hide();
                                 $("#family").hide();
                                 $("#type").hide();
                                 $("#habitat").hide();
                                 $("#flowering").hide();
                                 $("#chart").hide();
-                                $("#count").hide();
                 
                  countyPlants.setStyle({fillColor: '#080706', fillOpacity: 1, color: '#A3A599', weight: 0.5, opacity: 0.5});  
+            })
+        }
+        
+        function createInfoPanel(){
+            
+            var info = $('#info');
+            
+            info.on('click', function (e) {  
+                
+                var selectedPlant = $(e.target).html(); 
+                
+            countyPlants.eachLayer (function(layer) {   
+                
+                var plants = layer.feature.properties.plants;
+
+                    for(var plant in plants) { 
+                        
+                        if (selectedPlant === plants[plant].SNAME) {
+                    
+                            $("#name").show();
+                            $('#name').text("Commun Name: " + plants[plant].CNAME);     
+                        }
+                        
+                        info.on('mouseout', function(e) { 
+                            $("#name").hide();
+                        })
+                    }
+                }) 
             })
         }
                                            
